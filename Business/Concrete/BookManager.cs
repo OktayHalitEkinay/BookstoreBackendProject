@@ -57,24 +57,46 @@ namespace Business.Concrete
         }
         public IDataResult<List<BookDetailDto>> GetAllBookDetailsByAuthorIdsAndPublisherIdsAndLanguageIds(int[] authorIds, int[] publisherIds, int[] languageIds)
         {
-            
-            //if (authorIds.Length == 0)
-            //{
-            //    return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails(book => (publisherIds.Contains(book.PublisherId)) && (languageIds.Contains(book.LanguageId))));
-            //}
-            //if (publisherIds.Length == 0)
-            //{
-            //    return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails(book => book.Authors.Any(item1=> authorIds.Contains(item1.AuthorId)) && (languageIds.Contains(book.LanguageId)))); 
-            //}
-            
-            //if (languageIds.Length == 0)
-            //{
-            //    return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails(book => book.Authors.Any(item1 => authorIds.Contains(item1.AuthorId)) && (publisherIds.Contains(book.PublisherId))));
-            //}
-            return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails(book => book.Authors.Any(item1 => authorIds.Contains(item1.AuthorId)) 
-            && (publisherIds.Contains(book.PublisherId) ? true:false) 
-            && (languageIds.Contains(book.LanguageId))));
-            throw null;
+            List<BookDetailDto> filteredList = new List<BookDetailDto>();
+            var filteredListArranged = filteredList.AsEnumerable();
+            if (authorIds.Length!=0)
+            {
+                if (filteredListArranged.Count() == 0)
+                {
+                    filteredListArranged = (_bookDal.GetBookDetails(book => book.Authors.Any(item1 => authorIds.Contains(item1.AuthorId))));
+                }
+                else
+                {
+                    filteredListArranged = (filteredListArranged.Where(book => book.Authors.Any(item1 => authorIds.Contains(item1.AuthorId))));
+                }
+                
+            }
+            if (publisherIds.Length!=0)
+            {
+                if (filteredListArranged.Count() == 0)
+                {
+                    filteredListArranged = (_bookDal.GetBookDetails(book => publisherIds.Contains(book.PublisherId)));
+                }
+                else
+                {
+                    filteredListArranged = (filteredListArranged.Where(book => publisherIds.Contains(book.PublisherId)));
+                }
+                
+            }
+
+            if (languageIds.Length != 0)
+            {
+                if (filteredListArranged.Count()==0)
+                {
+                    filteredListArranged= (_bookDal.GetBookDetails((book => (languageIds.Contains(book.LanguageId)))));
+                }
+                else
+                {
+                    filteredListArranged = (filteredListArranged.Where(book => (languageIds.Contains(book.LanguageId))));
+                }
+                              
+            }           
+            return new SuccessDataResult<List<BookDetailDto>>(filteredListArranged.ToList());            
         }
 
 
