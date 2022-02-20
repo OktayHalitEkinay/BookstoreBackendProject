@@ -20,7 +20,7 @@ namespace Business.Abstract
         IDataResult<List<BookDetailDto>> GetAllBookDetails();
         IDataResult<List<BookDetailDto>> GetAllBookDetailsByBookId(int bookId);
         IDataResult<List<BookDetailDto>> GetAllBookDetailsByPublisherIds(int[] publisherIds);
-        public IDataResult<List<BookDetailDto>> GetAllBookDetailsByAuthorIdsAndPublisherIdsAndLanguageIds(int[] authorIds, int[] publisherIds, int[] languageIds);
+        public IDataResult<List<BookDetailDto>> GetAllBookDetailsByFilter(int[] authorIds, int[] publisherIds, int[] languageIds);
         #endregion
         /**************** */
         /* CUD Operations */

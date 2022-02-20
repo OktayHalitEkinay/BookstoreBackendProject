@@ -10,14 +10,16 @@ using System.Threading.Tasks;
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
-    public class BooksController : ControllerBase
+    [ApiController]
+    public class ComponentsController : ControllerBase
     {
         /* Dependency Injection */
         #region Dependency Injection
-        IBookService _bookService;
-        public BooksController(IBookService bookService)
+        IComponentService _componentService;
+
+        public ComponentsController(IComponentService componentService)
         {
-            _bookService = bookService;
+            _componentService = componentService;
         }
         #endregion
         /**************** */
@@ -26,31 +28,17 @@ namespace WebAPI.Controllers
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _bookService.GetAll();
+            var result = _componentService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-        [HttpGet("GetOneBookByBookId")]
-        public IActionResult GetOneBookByBookId(int bookId)
+        [HttpGet("GetOneComponentByComponentId")]
+        public IActionResult GetOneComponentByComponentId(int componentId)
         {
-            var result = _bookService.GetOneBookByBookId(bookId);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-        #endregion
-        /**************** */
-        /* Dto Operations */
-        #region Dto Operations
-        [HttpGet("GetAllBookDetails")]
-        public IActionResult GetAllBookDetails()
-        {
-            var result = _bookService.GetAllBookDetails();
+            var result = _componentService.GetOneComponentByComponentId(componentId);
             if (result.Success)
             {
                 return Ok(result);
@@ -58,46 +46,40 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("GetAllBookDetailsByBookId")]
-        public IActionResult GetAllBookDetailsByBookId(int bookId)
+
+        #endregion
+        /**************** */
+        /* Dto Operations */
+        #region Dto Operations
+        [HttpGet("GetAllComponentDetails")]
+        public IActionResult GetAllComponentDetails()
         {
-            var result = _bookService.GetAllBookDetailsByBookId(bookId);
+            var result = _componentService.GetAllComponentDetails();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-       
-        [HttpPost("GetAllBookDetailsByPublisherIds")]
-        public IActionResult GetAllBookDetailsByPublisherIds( int[] publisherIds)
+
+        [HttpGet("GetAllComponentDetailsByComponentId")]
+        public IActionResult GetAllComponentDetailsByComponentId(int componentId)
         {
-            var result = _bookService.GetAllBookDetailsByPublisherIds(publisherIds);
+            var result = _componentService.GetAllComponentDetailsByComponentId(componentId);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-        [HttpPost("GetAllBookDetailsByFilter")]
-        public IActionResult GetAllBookDetailsByFilter(int[] authorIds, int[] publisherIds, int[] languageIds)
-        {
-            var result = _bookService.GetAllBookDetailsByFilter(authorIds,publisherIds,languageIds);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
-       
         #endregion
         /**************** */
         /* CUD Operations */
         #region CUD Operations
         [HttpPost("Add")]
-        public IActionResult AddBook(Book book)
+        public IActionResult Add(Component component)
         {
-            var result = _bookService.Add(book);
+            var result = _componentService.Add(component);
             if (result.Success)
             {
                 return Ok(result);
@@ -106,9 +88,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(Book book)
+        public IActionResult Update(Component component)
         {
-            var result = _bookService.Update(book);
+            var result = _componentService.Update(component);
             if (result.Success)
             {
                 return Ok(result);
@@ -117,9 +99,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Delete")]
-        public IActionResult Delete(Book book)
+        public IActionResult Delete(Component component)
         {
-            var result = _bookService.Delete(book);
+            var result = _componentService.Delete(component);
             if (result.Success)
             {
                 return Ok(result);

@@ -20,6 +20,7 @@ namespace Entities.DTOs
         public string LanguageName { get; set; }
         public string PublisherName { get; set; }
         public Author[] Authors { get; set; }
+        public List<BookImage> BookImages { get; set; }
 
     }
 }

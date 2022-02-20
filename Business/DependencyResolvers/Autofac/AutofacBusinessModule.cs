@@ -32,6 +32,15 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<AuthorManager>().As<IAuthorService>().SingleInstance();
             builder.RegisterType<EfAuthorDal>().As<IAuthorDal>().SingleInstance();
 
+            builder.RegisterType<BookImageManager>().As<IBookImageService>().SingleInstance();
+            builder.RegisterType<EfBookImageDal>().As<IBookImageDal>().SingleInstance();
+
+            builder.RegisterType<ComponentImageManager>().As<IComponentImageService>().SingleInstance();
+            builder.RegisterType<EfComponentImageDal>().As<IComponentImageDal>().SingleInstance();
+
+            builder.RegisterType<ComponentManager>().As<IComponentService>().SingleInstance();
+            builder.RegisterType<EfComponentDal>().As<IComponentDal>().SingleInstance();
+
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
 

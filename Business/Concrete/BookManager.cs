@@ -55,7 +55,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails(book => publisherIds.Contains(book.PublisherId)));                                                  
         }
-        public IDataResult<List<BookDetailDto>> GetAllBookDetailsByAuthorIdsAndPublisherIdsAndLanguageIds(int[] authorIds, int[] publisherIds, int[] languageIds)
+        public IDataResult<List<BookDetailDto>> GetAllBookDetailsByFilter(int[] authorIds, int[] publisherIds, int[] languageIds)
         {
             List<BookDetailDto> filteredList = new List<BookDetailDto>();
             var filteredListArranged = filteredList.AsEnumerable();

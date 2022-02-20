@@ -8,6 +8,14 @@ namespace Business.Constants
 {
     public static class Messages
     {
+        internal static readonly string BookImageAdded;
+        internal static readonly string BookImageUpdated;
+        internal static readonly string ComponentImageAdded;
+        internal static readonly string ComponentImageDeleted;
+        internal static readonly string ComponentImageUpdated;
+        internal static readonly string ComponentUpdated;
+        internal static readonly string ComponentAdded;
+        internal static readonly string ComponentDeleted;
         public static string ProductAdded = "Ürün eklendi";
         public static string ProductNameInvalid = "Ürün ismi geçersiz";
         public static string MaintenanceTime ="Sistem bakımda";
@@ -31,6 +39,7 @@ namespace Business.Constants
         internal static string BookAuthorUpdated;
         internal static string BookAuthorDeleted;
         internal static string BookAuthorAdded;
+        internal static string BookImageDeleted;
 
         public static string LanguageDeleted { get; internal set; }
     }

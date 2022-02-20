@@ -38,7 +38,15 @@ namespace DataAccess.Concrete.EntityFramework
                                  Authors = (from bookAuthors in context.BookAuthors
                                             join author in context.Authors on bookAuthors.AuthorId equals author.AuthorId
                                             where book.BookId == bookAuthors.BookId
-                                            select new Author { AuthorId = bookAuthors.AuthorId, AuthorName = author.AuthorName }).ToArray()
+                                            select new Author { AuthorId = bookAuthors.AuthorId, AuthorName = author.AuthorName }).ToArray(),
+                                 BookImages = (from bookImages in context.BookImages
+                                               where (book.BookId == bookImages.BookId)
+                                               select new BookImage
+                                               {
+                                                   BookId=bookImages.BookId,
+                                                   Id=bookImages.Id,
+                                                   ImagePath=bookImages.ImagePath
+                                               }).ToList()
 
                              };
 
