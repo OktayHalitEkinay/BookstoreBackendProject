@@ -75,11 +75,6 @@ namespace Business.Concrete
             /*Burada çeşidi az olan filtrelemeyi en alta atmak zaman zaman performans kazancı sağlamaktadır.*/
         }
 
-      
-
-
-
-
 
         #endregion
         /**************** */
