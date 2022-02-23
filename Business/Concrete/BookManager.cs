@@ -55,69 +55,27 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails(book => publisherIds.Contains(book.PublisherId)));                                                  
         }
-        public IDataResult<List<BookDetailDto>> GetAllBookDetailsByFilter(int[] authorIds, int[] publisherIds, int[] languageIds,int[] genreIds,int minStock,int maxStock,decimal minPrice, decimal maxPrice)
+        public IDataResult<List<BookDetailDto>> GetAllBookDetailsByFilter(
+            int[] authorIds,
+            int[] publisherIds, 
+            int[] languageIds,
+            int[] genreIds,
+            int minStock,int maxStock,
+            decimal minPrice, decimal maxPrice)
         {
             List<BookDetailDto> filteredList = new List<BookDetailDto>();
             var filteredListArranged = filteredList.AsEnumerable();
-            if (authorIds.Length!=0)
-            {
-                if (filteredListArranged.Count() == 0)
-                {
-                    filteredListArranged = (_bookDal.GetBookDetails(book => book.Authors.Any(item1 => authorIds.Contains(item1.AuthorId))));
-                }
-                else
-                {
-                    filteredListArranged = (filteredListArranged.Where(book => book.Authors.Any(item1 => authorIds.Contains(item1.AuthorId))));
-                }
-                
-            }
-            if (genreIds.Length != 0)
-            {
-                if (filteredListArranged.Count() == 0)
-                {
-                    filteredListArranged = (_bookDal.GetBookDetails(book => book.Genres.Any(item1 => genreIds.Contains(item1.GenreId))));
-                }
-                else
-                {
-                    filteredListArranged = (filteredListArranged.Where(book => book.Genres.Any(item1 => genreIds.Contains(item1.GenreId))));
-                }
-
-            }
-            if (publisherIds.Length!=0)
-            {
-                if (filteredListArranged.Count() == 0)
-                {
-                    filteredListArranged = (_bookDal.GetBookDetails(book => publisherIds.Contains(book.PublisherId)));
-                }
-                else
-                {
-                    filteredListArranged = (filteredListArranged.Where(book => publisherIds.Contains(book.PublisherId)));
-                }
-                
-            }
-
-            if (languageIds.Length != 0)
-            {
-                if (filteredListArranged.Count()==0)
-                {
-                    filteredListArranged= (_bookDal.GetBookDetails((book => (languageIds.Contains(book.LanguageId)))));
-                }
-                else
-                {
-                    filteredListArranged = (filteredListArranged.Where(book => (languageIds.Contains(book.LanguageId))));
-                }
-                              
-            }
-            if (minPrice==maxPrice || maxPrice==0)
-            {
-                filteredListArranged = filteredListArranged;
-            }
-            else
-            {
-                filteredListArranged = filteredListArranged.Where(book => (minPrice < book.Price && book.Price < maxPrice));
-            }           
-            return new SuccessDataResult<List<BookDetailDto>>(filteredListArranged.ToList());            
+            filteredListArranged = FilterByAuthorIds(authorIds, filteredListArranged);
+            filteredListArranged = FilterByPublisherIds(publisherIds, filteredListArranged);
+            filteredListArranged = FilterByPrice(minPrice, maxPrice, filteredListArranged);
+            filteredListArranged = FilterByStock(minStock, maxStock, filteredListArranged);
+            filteredListArranged = FilterByLanguageIds(languageIds, filteredListArranged);
+            filteredListArranged = FilterByGenreIds(genreIds, filteredListArranged);
+            return new SuccessDataResult<List<BookDetailDto>>(filteredListArranged.ToList());
+            /*Burada çeşidi az olan filtrelemeyi en alta atmak zaman zaman performans kazancı sağlamaktadır.*/
         }
+
+      
 
 
 
@@ -167,12 +125,116 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BookUpdated);
         }
 
-       
+
         #endregion
         /**************** */
         /* Business Codes */
         #region Business Codes
+        private IEnumerable<BookDetailDto> FilterByGenreIds(int[] genreIds, IEnumerable<BookDetailDto> filteredListArranged)
+        {
+            if (genreIds.Length != 0)
+            {
+                if (filteredListArranged.Count() == 0)
+                {
+                    filteredListArranged = (_bookDal.GetBookDetails(book => book.Genres.Any(item1 => genreIds.Contains(item1.GenreId))));
+                }
+                else
+                {
+                    filteredListArranged = (filteredListArranged.Where(book => book.Genres.Any(item1 => genreIds.Contains(item1.GenreId))));
+                }
 
+            }
+
+            return filteredListArranged;
+        }
+
+        private IEnumerable<BookDetailDto> FilterByLanguageIds(int[] languageIds, IEnumerable<BookDetailDto> filteredListArranged)
+        {
+            if (languageIds.Length != 0)
+            {
+                if (!filteredListArranged.Any())
+                {
+                    filteredListArranged = (_bookDal.GetBookDetails((book => (languageIds.Contains(book.LanguageId)))));
+                }
+                else
+                {
+                    filteredListArranged = (filteredListArranged.Where(book => (languageIds.Contains(book.LanguageId))));
+                }
+
+            }
+
+            return filteredListArranged;
+        }
+
+        private IEnumerable<BookDetailDto> FilterByStock(int minStock, int maxStock, IEnumerable<BookDetailDto> filteredListArranged)
+        {
+            if (maxStock > minStock)
+            {
+                if (!filteredListArranged.Any())
+                {
+                    filteredListArranged = (_bookDal.GetBookDetails((book => (minStock <= book.Stock && book.Stock <= maxStock))));
+                }
+                else
+                {
+                    filteredListArranged = filteredListArranged.Where(book => (minStock <= book.Stock && book.Stock <= maxStock));
+                }
+            }
+
+            return filteredListArranged;
+        }
+
+        private IEnumerable<BookDetailDto> FilterByPrice(decimal minPrice, decimal maxPrice, IEnumerable<BookDetailDto> filteredListArranged)
+        {
+            if (maxPrice > minPrice)
+            {
+                if (!filteredListArranged.Any())
+                {
+                    filteredListArranged = (_bookDal.GetBookDetails((book => (minPrice <= book.Price && book.Price <= maxPrice))));
+                }
+                else
+                {
+                    filteredListArranged = filteredListArranged.Where(book => (minPrice <= book.Price && book.Price <= maxPrice));
+                }
+            }
+
+            return filteredListArranged;
+        }
+
+        private IEnumerable<BookDetailDto> FilterByPublisherIds(int[] publisherIds, IEnumerable<BookDetailDto> filteredListArranged)
+        {
+            if (publisherIds.Length != 0)
+            {
+                if (filteredListArranged.Count() == 0)
+                {
+                    filteredListArranged = (_bookDal.GetBookDetails(book => publisherIds.Contains(book.PublisherId)));
+                }
+                else
+                {
+                    filteredListArranged = (filteredListArranged.Where(book => publisherIds.Contains(book.PublisherId)));
+                }
+
+            }
+
+            return filteredListArranged;
+        }
+
+        private IEnumerable<BookDetailDto> FilterByAuthorIds(int[] authorIds, IEnumerable<BookDetailDto> filteredListArranged)
+        {
+            if (authorIds.Length != 0)
+            {
+                if (filteredListArranged.Count() == 0)
+                {
+                    filteredListArranged = (_bookDal.GetBookDetails(book => book.Authors.Any(item1 => authorIds.Contains(item1.AuthorId))));
+                }
+                else
+                {
+                    filteredListArranged = (filteredListArranged.Where(book => book.Authors.Any(item1 => authorIds.Contains(item1.AuthorId))));
+                }
+
+            }
+
+            return filteredListArranged;
+        }
         #endregion
         /**************** */
     }
