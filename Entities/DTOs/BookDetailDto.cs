@@ -21,6 +21,9 @@ namespace Entities.DTOs
         public string PublisherName { get; set; }
         public Author[] Authors { get; set; }
         public List<BookImage> BookImages { get; set; }
+        public Decimal Price { get; set; }
+        public int Stock { get; set; }
+        public List<Genre> Genres { get; set; }
 
     }
 }

@@ -15,7 +15,9 @@ namespace Entities.Concrete
         public string Isbn13 { get; set; }
         public int NumberOfPages { get; set; }
         public DateTime PublicationDate { get; set; }
-        
+        public Decimal Price { get; set; }
+        public int Stock { get; set; }
+
 
     }
 }

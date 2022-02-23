@@ -78,12 +78,15 @@ namespace WebAPI
 
             app.UseHttpsRedirection();
 
+            
+
             app.UseRouting();
 
             app.UseAuthentication();
 
             app.UseAuthorization();
-
+            app.UseStaticFiles();
+            app.UseDirectoryBrowser();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

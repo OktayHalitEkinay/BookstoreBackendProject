@@ -46,8 +46,13 @@ namespace DataAccess.Concrete.EntityFramework
                                                    BookId=bookImages.BookId,
                                                    Id=bookImages.Id,
                                                    ImagePath=bookImages.ImagePath
-                                               }).ToList()
-
+                                               }).ToList(),
+                                 Price=book.Price,
+                                 Stock=book.Stock,
+                                 Genres= (from bookGenres in context.BookGenres
+                                          join genre in context.Genres on bookGenres.GenreId equals genre.GenreId
+                                          where book.BookId == bookGenres.BookId
+                                          select new Genre { GenreId = bookGenres.GenreId, GenreName=genre.GenreName }).ToList()
                              };
 
                 return filter == null ? result.ToList() : result.Where(filter).ToList();

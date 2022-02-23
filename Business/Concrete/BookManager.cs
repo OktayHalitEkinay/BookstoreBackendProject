@@ -55,7 +55,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<BookDetailDto>>(_bookDal.GetBookDetails(book => publisherIds.Contains(book.PublisherId)));                                                  
         }
-        public IDataResult<List<BookDetailDto>> GetAllBookDetailsByFilter(int[] authorIds, int[] publisherIds, int[] languageIds)
+        public IDataResult<List<BookDetailDto>> GetAllBookDetailsByFilter(int[] authorIds, int[] publisherIds, int[] languageIds,int[] genreIds,int minStock,int maxStock,decimal minPrice, decimal maxPrice)
         {
             List<BookDetailDto> filteredList = new List<BookDetailDto>();
             var filteredListArranged = filteredList.AsEnumerable();
@@ -70,6 +70,18 @@ namespace Business.Concrete
                     filteredListArranged = (filteredListArranged.Where(book => book.Authors.Any(item1 => authorIds.Contains(item1.AuthorId))));
                 }
                 
+            }
+            if (genreIds.Length != 0)
+            {
+                if (filteredListArranged.Count() == 0)
+                {
+                    filteredListArranged = (_bookDal.GetBookDetails(book => book.Genres.Any(item1 => genreIds.Contains(item1.GenreId))));
+                }
+                else
+                {
+                    filteredListArranged = (filteredListArranged.Where(book => book.Genres.Any(item1 => genreIds.Contains(item1.GenreId))));
+                }
+
             }
             if (publisherIds.Length!=0)
             {
@@ -95,6 +107,14 @@ namespace Business.Concrete
                     filteredListArranged = (filteredListArranged.Where(book => (languageIds.Contains(book.LanguageId))));
                 }
                               
+            }
+            if (minPrice==maxPrice || maxPrice==0)
+            {
+                filteredListArranged = filteredListArranged;
+            }
+            else
+            {
+                filteredListArranged = filteredListArranged.Where(book => (minPrice < book.Price && book.Price < maxPrice));
             }           
             return new SuccessDataResult<List<BookDetailDto>>(filteredListArranged.ToList());            
         }
