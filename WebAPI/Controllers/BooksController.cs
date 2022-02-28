@@ -79,7 +79,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("GetAllBookDetailsByFilter")]
+        [HttpGet("GetAllBookDetailsByFilter")]
         public IActionResult GetAllBookDetailsByFilter(int[] authorIds, int[] publisherIds, int[] languageIds,int[] genreIds, int minStock, int maxStock, decimal minPrice, decimal maxPrice)
         {
             var result = _bookService.GetAllBookDetailsByFilter(authorIds,publisherIds,languageIds,genreIds,minStock,maxStock,minPrice,maxPrice);
