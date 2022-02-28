@@ -41,6 +41,12 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ComponentManager>().As<IComponentService>().SingleInstance();
             builder.RegisterType<EfComponentDal>().As<IComponentDal>().SingleInstance();
 
+            builder.RegisterType<GenreManager>().As<IGenreService>().SingleInstance();
+            builder.RegisterType<EfGenreDal>().As<IGenreDal>().SingleInstance();
+
+            builder.RegisterType<ComponentContentManager>().As<IComponentContentService>().SingleInstance();
+            builder.RegisterType<EfComponentContentDal>().As<IComponentContentDal>().SingleInstance();
+
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
 

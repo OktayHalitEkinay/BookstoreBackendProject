@@ -16,6 +16,12 @@ namespace Business.Constants
         internal static readonly string ComponentUpdated;
         internal static readonly string ComponentAdded;
         internal static readonly string ComponentDeleted;
+        internal static readonly string GenreUpdated;
+        internal static readonly string GenreDeleted;
+        internal static readonly string GenreAdded;
+        internal static readonly string ComponentContentUpdated;
+        internal static readonly string ComponentContentDeleted;
+        internal static readonly string ComponentContentAdded;
         public static string ProductAdded = "Ürün eklendi";
         public static string ProductNameInvalid = "Ürün ismi geçersiz";
         public static string MaintenanceTime ="Sistem bakımda";
