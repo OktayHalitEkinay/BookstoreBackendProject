@@ -9,25 +9,25 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IComponentService
+   public interface IHTMLPlaceholderService
     {
         /* Read Operations */
         #region Read Operations
-        IDataResult<List<Component>> GetAll();
-        IDataResult<Component> GetOneComponentByComponentId(int componentId);
+        IDataResult<List<HTMLPlaceholder>> GetAll();
+        IDataResult<HTMLPlaceholder> GetOneHTMLPlaceholderByPlaceholderId(int placeholderId);
         #endregion
         /**************** */
         /* Dto Operations */
         #region Dto Operations
-        IDataResult<List<ComponentDetailDto>> GetAllComponentDetails();
-        IDataResult<List<ComponentDetailDto>> GetAllComponentDetailsByComponentId(int componentId);
+        IDataResult<List<HTMLPlaceholderDetailDto>> GetAllHTMLPlaceholderDetails();
+        IDataResult<List<HTMLPlaceholderDetailDto>> GetAllHTMLPlaceholderDetailsByPlaceholderId(int placeholderId);
         #endregion
         /**************** */
         /* CUD Operations */
         #region CUD Operations
-        IResult Add(Component component);
-        IResult Delete(Component component);
-        IResult Update(Component component);
+        IResult Add(HTMLPlaceholder htmlPlaceholder);
+        IResult Delete(HTMLPlaceholder htmlPlaceholder);
+        IResult Update(HTMLPlaceholder htmlPlaceholder);
         #endregion
         /**************** */
     }

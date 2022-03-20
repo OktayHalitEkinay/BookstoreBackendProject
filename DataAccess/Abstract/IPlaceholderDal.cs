@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IComponentContentDal : IEntityRepository<ComponentContent>
+    public interface IPlaceholderDal : IEntityRepository<Placeholder>
     {
     }
 }

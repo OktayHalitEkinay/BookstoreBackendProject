@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IComponentDal : IEntityRepository<Component>
+    public interface IHTMLPlaceholderDal : IEntityRepository<HTMLPlaceholder>
     {
-        public List<ComponentDetailDto> GetComponentDetails(Expression<Func<ComponentDetailDto, bool>> filter = null);
+        public List<HTMLPlaceholderDetailDto> GetHTMLPlaceholderDetails (Expression<Func<HTMLPlaceholderDetailDto, bool>> filter = null);
     }
 }

@@ -34,7 +34,7 @@ namespace Business.Concrete
 
         public IDataResult<Genre> GetOneGenreByGenreId(int genreId)
         {
-            return new SuccessDataResult<Genre>(_genreDal.Get(genre => genre.GenreId == genreId));
+            return new SuccessDataResult<Genre>(_genreDal.Get(genre => genre.Id == genreId));
         }
         #endregion
         /**************** */

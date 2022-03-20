@@ -131,11 +131,11 @@ namespace Business.Concrete
             {
                 if (filteredListArranged.Count() == 0)
                 {
-                    filteredListArranged = (_bookDal.GetBookDetails(book => book.Genres.Any(item1 => genreIds.Contains(item1.GenreId))));
+                    filteredListArranged = (_bookDal.GetBookDetails(book => book.Genres.Any(item1 => genreIds.Contains(item1.Id))));
                 }
                 else
                 {
-                    filteredListArranged = (filteredListArranged.Where(book => book.Genres.Any(item1 => genreIds.Contains(item1.GenreId))));
+                    filteredListArranged = (filteredListArranged.Where(book => book.Genres.Any(item1 => genreIds.Contains(item1.Id))));
                 }
 
             }

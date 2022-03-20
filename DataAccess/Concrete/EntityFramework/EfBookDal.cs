@@ -20,7 +20,7 @@ namespace DataAccess.Concrete.EntityFramework
             using (BookstoreContext context = new BookstoreContext())
             {
                 var result = from book in context.Books
-                             join language in context.Languages on book.LanguageId equals language.LanguageId
+                             join language in context.Languages on book.LanguageId equals language.Id
                              join publisher in context.Publishers on book.PublisherId equals publisher.PublisherId
 
                              select new BookDetailDto
@@ -28,7 +28,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  BookId = book.BookId,
                                  Isbn13 = book.Isbn13,
                                  LanguageCode = language.LanguageCode,
-                                 LanguageId = language.LanguageId,
+                                 LanguageId = language.Id,
                                  LanguageName = language.LanguageName,
                                  NumberOfPages = book.NumberOfPages,
                                  PublicationDate = book.PublicationDate,
@@ -50,9 +50,9 @@ namespace DataAccess.Concrete.EntityFramework
                                  Price=book.Price,
                                  Stock=book.Stock,
                                  Genres= (from bookGenres in context.BookGenres
-                                          join genre in context.Genres on bookGenres.GenreId equals genre.GenreId
+                                          join genre in context.Genres on bookGenres.GenreId equals genre.Id
                                           where book.BookId == bookGenres.BookId
-                                          select new Genre { GenreId = bookGenres.GenreId, GenreName=genre.GenreName }).ToList()
+                                          select new Genre { Id = bookGenres.GenreId, GenreName=genre.GenreName }).ToList()
                              };
 
                 return filter == null ? result.ToList() : result.Where(filter).ToList();

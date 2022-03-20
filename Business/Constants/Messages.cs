@@ -22,6 +22,12 @@ namespace Business.Constants
         internal static readonly string ComponentContentUpdated;
         internal static readonly string ComponentContentDeleted;
         internal static readonly string ComponentContentAdded;
+        internal static readonly string PlaceholderAdded;
+        internal static readonly string PlaceholderDeleted;
+        internal static readonly string PlaceholderUpdated;
+        internal static readonly string HTMLPlaceholderUpdated;
+        internal static readonly string HTMLPlaceholderDeleted;
+        internal static readonly string HTMLPlaceholderAdded;
         public static string ProductAdded = "Ürün eklendi";
         public static string ProductNameInvalid = "Ürün ismi geçersiz";
         public static string MaintenanceTime ="Sistem bakımda";

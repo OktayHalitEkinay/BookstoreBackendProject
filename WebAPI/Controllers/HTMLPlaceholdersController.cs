@@ -11,16 +11,17 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ComponentsController : ControllerBase
+    public class HTMLPlaceholdersController : ControllerBase
     {
         /* Dependency Injection */
         #region Dependency Injection
-        IComponentService _componentService;
+        IHTMLPlaceholderService _htmlPlaceholderService;
 
-        public ComponentsController(IComponentService componentService)
+        public HTMLPlaceholdersController(IHTMLPlaceholderService htmlPlaceholderService)
         {
-            _componentService = componentService;
+            _htmlPlaceholderService = htmlPlaceholderService;
         }
+
         #endregion
         /**************** */
         /* Read Operations */
@@ -28,17 +29,17 @@ namespace WebAPI.Controllers
         [HttpGet("GetAll")]
         public IActionResult GetAll()
         {
-            var result = _componentService.GetAll();
+            var result = _htmlPlaceholderService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-        [HttpGet("GetOneComponentByComponentId")]
-        public IActionResult GetOneComponentByComponentId(int componentId)
+        [HttpGet("GetOneHTMLPlaceholderByPlaceholderId")]
+        public IActionResult GetOneHTMLPlaceholderByPlaceholderId(int placeholderId)
         {
-            var result = _componentService.GetOneComponentByComponentId(componentId);
+            var result = _htmlPlaceholderService.GetOneHTMLPlaceholderByPlaceholderId(placeholderId);
             if (result.Success)
             {
                 return Ok(result);
@@ -51,10 +52,10 @@ namespace WebAPI.Controllers
         /**************** */
         /* Dto Operations */
         #region Dto Operations
-        [HttpGet("GetAllComponentDetails")]
-        public IActionResult GetAllComponentDetails()
+        [HttpGet("GetAllPlaceholderDetails")]
+        public IActionResult GetAllPlaceholderDetails()
         {
-            var result = _componentService.GetAllComponentDetails();
+            var result = _htmlPlaceholderService.GetAllHTMLPlaceholderDetails();
             if (result.Success)
             {
                 return Ok(result);
@@ -62,10 +63,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("GetAllComponentDetailsByComponentId")]
-        public IActionResult GetAllComponentDetailsByComponentId(int componentId)
+        [HttpGet("GetAllHTMLPlaceholderDetailsByPlaceholderId")]
+        public IActionResult GetAllHTMLPlaceholderDetailsByPlaceholderId(int placeholderId)
         {
-            var result = _componentService.GetAllComponentDetailsByComponentId(componentId);
+            var result = _htmlPlaceholderService.GetAllHTMLPlaceholderDetailsByPlaceholderId(placeholderId);
             if (result.Success)
             {
                 return Ok(result);
@@ -77,9 +78,9 @@ namespace WebAPI.Controllers
         /* CUD Operations */
         #region CUD Operations
         [HttpPost("Add")]
-        public IActionResult Add(Component component)
+        public IActionResult Add(HTMLPlaceholder htmlPlaceholder)
         {
-            var result = _componentService.Add(component);
+            var result = _htmlPlaceholderService.Add(htmlPlaceholder);
             if (result.Success)
             {
                 return Ok(result);
@@ -88,9 +89,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Update")]
-        public IActionResult Update(Component component)
+        public IActionResult Update(HTMLPlaceholder htmlPlaceholder)
         {
-            var result = _componentService.Update(component);
+            var result = _htmlPlaceholderService.Update(htmlPlaceholder);
             if (result.Success)
             {
                 return Ok(result);
@@ -99,9 +100,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("Delete")]
-        public IActionResult Delete(Component component)
+        public IActionResult Delete(HTMLPlaceholder htmlPlaceholder)
         {
-            var result = _componentService.Delete(component);
+            var result = _htmlPlaceholderService.Delete(htmlPlaceholder);
             if (result.Success)
             {
                 return Ok(result);

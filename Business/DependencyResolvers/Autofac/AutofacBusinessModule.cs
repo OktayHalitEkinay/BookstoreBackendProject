@@ -38,14 +38,14 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<ComponentImageManager>().As<IComponentImageService>().SingleInstance();
             builder.RegisterType<EfComponentImageDal>().As<IComponentImageDal>().SingleInstance();
 
-            builder.RegisterType<ComponentManager>().As<IComponentService>().SingleInstance();
-            builder.RegisterType<EfComponentDal>().As<IComponentDal>().SingleInstance();
+            builder.RegisterType<PlaceholderManager>().As<IPlaceholderService>().SingleInstance();
+            builder.RegisterType<EfPlaceholderDal>().As<IPlaceholderDal>().SingleInstance();
 
             builder.RegisterType<GenreManager>().As<IGenreService>().SingleInstance();
             builder.RegisterType<EfGenreDal>().As<IGenreDal>().SingleInstance();
 
-            builder.RegisterType<ComponentContentManager>().As<IComponentContentService>().SingleInstance();
-            builder.RegisterType<EfComponentContentDal>().As<IComponentContentDal>().SingleInstance();
+            builder.RegisterType<HTMLPlaceholderManager>().As<IHTMLPlaceholderService>().SingleInstance();
+            builder.RegisterType<EfHTMLPlaceholderDal>().As<IHTMLPlaceholderDal>().SingleInstance();
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();

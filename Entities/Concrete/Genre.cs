@@ -11,7 +11,7 @@ namespace Entities.Concrete
     public class Genre:IEntity
     {
         [Key]
-        public int GenreId { get; set; }
+        public int Id { get; set; }
         public string GenreName { get; set; }
     }
 }

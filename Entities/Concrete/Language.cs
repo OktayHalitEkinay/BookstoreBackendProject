@@ -9,7 +9,7 @@ namespace Entities.Concrete
 {
     public class Language:IEntity
     {
-        public int LanguageId { get; set; }
+        public int Id { get; set; }
         public string LanguageCode { get; set; }
         public string LanguageName { get; set; }
     }

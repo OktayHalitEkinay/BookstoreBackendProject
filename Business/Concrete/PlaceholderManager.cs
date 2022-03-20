@@ -12,29 +12,30 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class LanguageManager:ILanguageService
+    public class PlaceholderManager:IPlaceholderService
     {
-
         /* Dependency Injection */
         #region Dependency Injection
-        ILanguageDal _languageDal;
-        public LanguageManager(ILanguageDal languageDal)
+        IPlaceholderDal _placeholderDal;
+
+        public PlaceholderManager(IPlaceholderDal placeholderDal)
         {
-            _languageDal = languageDal;
+            _placeholderDal = placeholderDal;
         }
         #endregion
         /**************** */
         /* Read Operations */
         #region Read Operations
-        public IDataResult<List<Language>> GetAll()
+        public IDataResult<List<Placeholder>> GetAll()
         {
-            return new SuccessDataResult<List<Language>>(_languageDal.GetAll());
+            return new SuccessDataResult<List<Placeholder>>(_placeholderDal.GetAll());
         }
-
-        public IDataResult<Language> GetOneLanguageByLanguageId(int languageId)
-        {
-            return new SuccessDataResult<Language>(_languageDal.Get(ln => ln.Id == languageId));
-        }
+        //Bu alan HTMLPlaceholders ile karıştırılmaması için yorum satırına alınmıştır.
+        //Test gerektirdiğinde açılması uygundur.
+        //public IDataResult<Placeholder> GetOnePlaceholderByPlaceholderId(int placeholderId)
+        //{
+        //    return new SuccessDataResult<Placeholder>(_placeholderDal.Get(x => x.Id == placeholderId));
+        //}
         #endregion
         /**************** */
         /* Dto Operations */
@@ -44,7 +45,7 @@ namespace Business.Concrete
         /**************** */
         /* CUD Operations */
         #region CUD Operations
-        public IResult Add(Language language)
+        public IResult Add(Placeholder placeholder)
         {
             IResult result = BusinessRules.Run();
 
@@ -53,11 +54,11 @@ namespace Business.Concrete
                 return result;
             }
 
-            _languageDal.Add(language);
+            _placeholderDal.Add(placeholder);
 
-            return new SuccessResult(Messages.LanguageAdded);
+            return new SuccessResult(Messages.PlaceholderAdded);
         }
-        public IResult Delete(Language language)
+        public IResult Delete(Placeholder placeholder)
         {
             IResult result = BusinessRules.Run();
 
@@ -66,11 +67,11 @@ namespace Business.Concrete
                 return result;
             }
 
-            _languageDal.Delete(language);
+            _placeholderDal.Delete(placeholder);
 
-            return new SuccessResult(Messages.LanguageDeleted);
+            return new SuccessResult(Messages.PlaceholderDeleted);
         }
-        public IResult Update(Language language)
+        public IResult Update(Placeholder placeholder)
         {
             IResult result = BusinessRules.Run();
 
@@ -79,9 +80,9 @@ namespace Business.Concrete
                 return result;
             }
 
-            _languageDal.Update(language);
+            _placeholderDal.Update(placeholder);
 
-            return new SuccessResult(Messages.LanguageUpdated);
+            return new SuccessResult(Messages.PlaceholderUpdated);
         }
         #endregion
         /**************** */

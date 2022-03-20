@@ -20,12 +20,11 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Language> Languages { get; set; }
         public DbSet<BookAuthor> BookAuthors { get; set; }
         public DbSet<BookImage> BookImages { get; set; }
-        public DbSet<ComponentImage> ComponentImages { get; set; }
-        public DbSet<Component> Components { get; set; }
+        public DbSet<ComponentImage> ComponentImages { get; set; }   
         public DbSet<Genre> Genres { get; set; }
         public DbSet<BookGenres> BookGenres { get; set; }
-        public DbSet<ComponentContent> ComponentContents { get; set; }
-
+        public DbSet<Placeholder> Placeholders { get; set; }
+        public DbSet<HTMLPlaceholder> HTMLPlaceholders { get; set; }
 
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<User> Users { get; set; }

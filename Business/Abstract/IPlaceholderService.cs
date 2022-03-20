@@ -8,24 +8,26 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IComponentContentService
+    public interface IPlaceholderService
     {
-         /* Read Operations */
+        /* Read Operations */
         #region Read Operations
-        IDataResult<List<ComponentContent>> GetAll();
-        IDataResult<ComponentContent> GetOneComponentContentByComponentContentId(int componentContentId);
-        IDataResult<List<ComponentContent>> GetComponentContentsByComponentId(int commponentId);
+        IDataResult<List<Placeholder>> GetAll();
+        //Bu alan HTMLPlaceholders ile karıştırılmaması için yorum satırına alınmıştır.
+        //Test gerektirdiğinde açılması uygundur.
+        //IDataResult<Placeholder> GetOnePlaceholderByPlaceholderId(int placeholderId);
         #endregion
         /**************** */
         /* Dto Operations */
         #region Dto Operations
+
         #endregion
         /**************** */
         /* CUD Operations */
         #region CUD Operations
-        IResult Add(ComponentContent componentContent);
-        IResult Delete(ComponentContent componentContent);
-        IResult Update(ComponentContent componentContent);
+        IResult Add(Placeholder placeholder);
+        IResult Delete(Placeholder placeholder);
+        IResult Update(Placeholder placeholder);
         #endregion
         /**************** */
     }

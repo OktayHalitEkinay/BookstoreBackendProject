@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfComponentContentDal : EfEntityRepositoryBase<ComponentContent, BookstoreContext>, IComponentContentDal
-        
+    public class EfPlaceholderDal : EfEntityRepositoryBase<Placeholder, BookstoreContext>, IPlaceholderDal
     {
     }
 }
